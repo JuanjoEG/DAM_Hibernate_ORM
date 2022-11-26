@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name = "com.example.demo.Persona" table = "PERSONA">
+      
+      <meta attribute = "class-description">
+         Esta clase contiene el detalle del cliente. 
+      </meta>
+      
+      <id name = "idPersona" type = "int" column = "id_persona">
+         <generator class="native"/>
+      </id>
+      
+      <property name = "nombre" column = "nombre" type = "string"/>
+      <property name = "apellido" column = "apellido" type = "string"/>
+      <property name = "email" column = "email" type = "string"/>
+      <property name = "telefono" column = "telefono" type = "string"/>
+      
+   </class>
+</hibernate-mapping>
