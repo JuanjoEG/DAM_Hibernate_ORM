@@ -28,7 +28,9 @@ public class ServicioPersona {
         try {
             transaction = session.beginTransaction();
             Query consulta = session.createQuery(hql);
+            System.out.println("\n* * * * * * * * * --->   EJECUTANDO consulta.setFirstResult(1)   <--- * * * * * * * * *\n");
             consulta.setFirstResult(1);
+            System.out.println("\n* * * * * * * * * --->   EJECUTANDO consulta.setMaxResults(3)   <--- * * * * * * * * *\n");
             consulta.setMaxResults(3);
             results = consulta.getResultList();
             transaction.commit();
@@ -60,9 +62,40 @@ public class ServicioPersona {
             int status = consulta.executeUpdate();
             transaction.commit();
             if (status > 0) {
-                System.out.println("\nUPDATE REALIZADO\n");
+                System.out.println("\n* * * * * * * * * --->   UPDATE REALIZADO email elonmusk@twitter.com   <--- * * * * * * * * *\n");
             } else {
-                System.out.println("\nUPDATE NO REALIZADO\n");
+                System.out.println("\n* * * * * * * * * --->   UPDATE NO REALIZADO email elonmusk@twitter.com   <--- * * * * * * * * *\n");
+            }
+            
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+    
+    public static void consultaHQL_03(){
+    
+        String hql = "update Persona set EMAIL=:email where NOMBRE=:nombre and APELLIDO=:apellido";
+        Session session = factory.openSession();
+        Transaction transaction = null;
+        
+        try {
+            transaction = session.beginTransaction();
+            Query consulta = session.createQuery(hql);
+        
+            consulta.setParameter("email", "elonmusk@tesla.com");
+            consulta.setParameter("nombre", "Elon");
+            consulta.setParameter("apellido", "Musk");
+            
+            int status = consulta.executeUpdate();
+            transaction.commit();
+            if (status > 0) {
+                System.out.println("\n* * * * * * * * * --->   UPDATE REALIZADO email elonmusk@tesla.com   <--- * * * * * * * * *\n");
+            } else {
+                System.out.println("\n* * * * * * * * * --->   UPDATE NO REALIZADO email elonmusk@tesla.com   <--- * * * * * * * * *\n");
             }
             
         } catch (HibernateException e) {
